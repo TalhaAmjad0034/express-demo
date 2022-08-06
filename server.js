@@ -1,63 +1,21 @@
 const express = require("express");
 
+const friendsRouter = require("./routes/friends.router");
+
 const app = express();
-
 const PORT = 3001;
-
-const friends = [
-  {
-    id: 0,
-    name: "Ahmed",
-  },
-  {
-    id: 1,
-    name: "Ali",
-  },
-];
-
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
-
-app.use((req, res, next) => {
-  console.log(`${req.method} ${req.url}`);
-  next();
-});
-
-app.use(express.json());
-
-app.post("/friends", (req, res) => {
-  if (!req.body.name) {
-    console.log(req.body);
-    return res.status(400).send("Name is required");
-  }
-
-  const newFriend = {
-    id: friends.length,
-    name: req.body.name,
-  };
-  friends.push(newFriend);
-  res.json(newFriend);
-});
 
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
-
-app.get("/friends", (req, res) => {
-  res.send(friends);
-});
-
-app.get("/friends/:id", (req, res) => {
-  const id = Number(req.params.id);
-  const friend = friends[id];
-
-  if (friend) {
-    res.send(friend);
-  }
-  res.status(404).json({
-    error: "Friend not found",
+  res.render("index", {
+    title: "My Friends Are VERYY Clever",
+    caption: "Let's go skiing!",
   });
+});
+
+app.use("/friends", friendsRouter);
+
+app.listen(PORT, () => {
+  console.log(`Listening on ${PORT}...`);
 });
