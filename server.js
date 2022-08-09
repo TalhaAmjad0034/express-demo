@@ -1,9 +1,12 @@
 const express = require("express");
+const path = require("path");
 
 const friendsRouter = require("./routes/friends.router");
 
 const app = express();
 const PORT = 3001;
+
+app.use("/site", express.static(path.join(__dirname, "public")));
 
 app.use(express.json());
 

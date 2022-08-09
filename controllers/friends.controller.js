@@ -1,3 +1,5 @@
+const path = require("path");
+
 const model = require("../models/friends.model");
 
 function postFriend(req, res) {
@@ -18,6 +20,7 @@ function postFriend(req, res) {
 
 function getFriends(req, res) {
   res.json(model);
+  // res.sendFile(path.join(__dirname, "..", "public", "images", "img.jpg"));
 }
 
 function getFriend(req, res) {
